@@ -21,8 +21,10 @@ resource "aws_key_pair" "sample_ec2_key" {
 resource "aws_instance" "thena_devops" {
   ami           = "ami-0f1dcc636b69a6438" 
   instance_type = "t2.micro"
+  vpc_security_group_ids = ["sg-09f2ed42d97b5fa92"] 
   key_name = aws_key_pair.sample_ec2_key.key_name
   associate_public_ip_address = true
+
   user_data = <<-EOF
               #!/bin/bash
               apt update -y
