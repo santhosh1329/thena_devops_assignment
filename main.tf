@@ -27,10 +27,10 @@ resource "aws_instance" "thena_devops" {
 
   user_data = <<-EOF
                 #!/bin/bash
-                yum update -y
-                amazon-linux-extras install nginx1 -y
+                dnf update -y
+                dnf install -y nginx
                 systemctl enable nginx
-                systemctl start nginx
+                systemctl start nginx       
         EOF
 
 }
