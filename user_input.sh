@@ -27,9 +27,9 @@ fi
 EC2_PUBLIC_IP=$(terraform output -raw public_ip)
 
 
-scp -i ~/.ssh/my-ec2-key.pem index.html ubuntu@$EC2_PUBLIC_IP:/tmp/
+scp -i ~/.ssh/my-ec2-key.pem index.html ec2-user@$EC2_PUBLIC_IP:/tmp/
 
-ssh -i ~/.ssh/my-ec2-key.pem ubuntu@$EC2_PUBLIC_IP <<EOF
+ssh -i ~/.ssh/my-ec2-key.pem ec2-user@$EC2_PUBLIC_IP <<EOF
   sudo mv /tmp/index.html /var/www/html/index.html
   sudo systemctl restart nginx
 EOF
