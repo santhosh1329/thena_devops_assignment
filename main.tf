@@ -27,11 +27,12 @@ resource "aws_instance" "thena_devops" {
 
   user_data = <<-EOF
                 #!/bin/bash
-                sudo apt update -y
-                sudo apt install -y nginx 
-                sudo systemctl enable nginx
-                sudo systemctl start nginx
+                yum update -y
+                amazon-linux-extras install nginx1 -y
+                systemctl enable nginx
+                systemctl start nginx
         EOF
+
 }
 
 output "public_ip" {
