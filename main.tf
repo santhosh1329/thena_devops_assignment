@@ -26,23 +26,12 @@ resource "aws_instance" "thena_devops" {
   associate_public_ip_address = true
 
   user_data = <<-EOF
-              #!/bin/bash
-              apt update -y
-              
-              apt install -y nginx
-              
-              systemctl enable nginx
-
-              systemctl start nginx
-
-              apt install -y git
-
-              ufw allow 'Nginx HTTP'
-              EOF
-
-  tags = {
-    Name = "Thena DevOps Assignment"
-  }
+                #!/bin/bash
+                sudo apt update -y
+                sudo apt install -y nginx 
+                sudo systemctl enable nginx
+                sudo systemctl start nginx
+        EOF
 }
 
 output "public_ip" {
