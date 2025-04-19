@@ -1,14 +1,14 @@
 #!/bin/bash
 #getting the input of github url & branch
-read -p "Please Enter the GitHub/GitLab repository URL: " $1
-read -p "Please Enter the branch name that you want to test: " $2
+read -p "Please Enter the GitHub/GitLab repository URL: " repo_url
+read -p "Please Enter the branch name that you want to test: " branch_name
 
-git clone $1 devops_assignment
+git clone $repo_url devops_assignment
 if [ $? -ne 0 ]; then
   echo "Repo cloning failed"
   exit 1
 fi
-git fetch origin main && git checkout $2
+git fetch origin main && git checkout $branch_name
 
 #getting the input of branch url
 echo "Please Enter the Branch name you want to test"
@@ -27,9 +27,9 @@ fi
 EC2_PUBLIC_IP=$(terraform output -raw public_ip)
 
 
-scp -i ~/.ssh/your-key.pem index.html ubuntu@$EC2_PUBLIC_IP:/tmp/
+scp -i ~/.ssh/my-ec2-key.pem index.html ubuntu@$EC2_PUBLIC_IP:/tmp/
 
-ssh -i ~/.ssh/your-key.pem ubuntu@$EC2_PUBLIC_IP <<EOF
+ssh -i ~/.ssh/my-ec2-key.pem ubuntu@$EC2_PUBLIC_IP <<EOF
   sudo mv /tmp/index.html /var/www/html/index.html
   sudo systemctl restart nginx
 EOF

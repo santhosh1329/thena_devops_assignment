@@ -37,7 +37,12 @@ resource "aws_instance" "thena_devops" {
 
               ufw allow 'Nginx HTTP'
               EOF
+
   tags = {
     Name = "Thena DevOps Assignment"
   }
+}
+
+output "public_ip" {
+  value = aws_instance.thena_devops.public_ip
 }
