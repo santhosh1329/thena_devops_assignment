@@ -38,3 +38,24 @@ resource "aws_instance" "thena_devops" {
 output "public_ip" {
   value = aws_instance.thena_devops.public_ip
 }
+
+resource "aws_cloudwatch_metric_alarm" "inactivity_alarm" {
+  alarm_name          = "ec2-inactivity-alarm"
+  comparison_operator = "LessThanThreshold"
+  evaluation_periods  = 24                   
+  metric_name         = "NetworkOut"
+  namespace           = "AWS/EC2"
+  period              = 3600                  
+  statistic           = "Sum"                 
+  threshold           = 1                     
+  alarm_description   = "Triggers when EC2 NetworkOut is less than 1 byte for 24 hours"
+  dimensions = {
+    InstanceId = aws_instance.thena_devops.id
+  }
+
+  alarm_actions = [
+    "arn:aws:automate:ap-south-1:ec2:terminate"  
+  ]
+
+  treat_missing_data = "ignore"
+}
