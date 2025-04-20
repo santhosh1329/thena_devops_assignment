@@ -1,8 +1,8 @@
 
 **File Description:**
-index.html --> website that is deployed through nginx on an ec2 instance using terraform.
-main.tf --> terraform file that is configured to create an ec2 instance with nginx pre-installed using user-data script.
-user_input.sh --> CLI where user can enter the github url and branch name that they want to deploy.
+1. index.html --> website that is deployed through nginx on an ec2 instance using terraform.
+2. main.tf --> terraform file that is configured to create an ec2 instance with nginx pre-installed using user-data script.
+3. user_input.sh --> CLI where user can enter the github url and branch name that they want to deploy.
 
 **Deployment Instructions:**
 1. Run the user_input.sh script which it will prompt for github repo URL and branch name you want to deploy.
