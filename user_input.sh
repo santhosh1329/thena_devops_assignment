@@ -26,12 +26,13 @@ fi
 
 EC2_PUBLIC_IP=$(terraform output -raw public_ip)
 
+sleep 60
 
-scp -i ~/.ssh/my-ec2-key.pem index.html ec2-user@$EC2_PUBLIC_IP:/tmp/
+scp -i ~/.ssh/my-ec2-key.pem index.html ec2-user@$EC2_PUBLIC_IP:/tmp/index.html
 
-ssh -i ~/.ssh/my-ec2-key.pem ec2-user@$EC2_PUBLIC_IP <<EOF
-  sudo mv /tmp/index.html /var/www/html/index.html
-  sudo systemctl restart nginx
-EOF
+ssh -t -i ~/.ssh/my-ec2-key.pem ec2-user@$EC2_PUBLIC_IP "bash -l -c 'sudo mv /tmp/index.html /usr/share/nginx/html/index.html && sudo systemctl restart nginx'"
+
+
+echo "Deployment URL:http:${EC2_PUBLIC_IP}"
 
 
